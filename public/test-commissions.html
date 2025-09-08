@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Commissions - TeamApp V1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f0f0f0;
+        }
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav-tab {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .nav-tab:hover {
+            background: #f0f0f0;
+        }
+        .nav-tab.active {
+            background: #007bff;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Navigation Commissions</h1>
+    
+    <!-- Navigation simple -->
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('agents')">
+            👥 Gestion Agents
+        </button>
+        <button class="nav-tab" onclick="showTab('commissions')">
+            💰 Gestion Commissions
+        </button>
+    </div>
+    
+    <!-- Contenu Agents -->
+    <div id="agents-tab" class="tab-content active">
+        <h2>👥 Gestion des Agents</h2>
+        <p>Cette section gère les agents de l'équipe.</p>
+        <button class="btn" onclick="alert('Bouton Agents cliqué !')">Test Agents</button>
+    </div>
+    
+    <!-- Contenu Commissions -->
+    <div id="commissions-tab" class="tab-content">
+        <h2>💰 Gestion des Commissions</h2>
+        <p>Cette section gère les commissions et projets.</p>
+        <button class="btn" onclick="alert('Bouton Commissions cliqué !')">Test Commissions</button>
+        <button class="btn" onclick="loadCommissions()">Charger Commissions</button>
+    </div>
+    
+    <script>
+        // Fonction simple pour changer d'onglet
+        function showTab(tabName) {
+            console.log('🔄 Changement vers l\'onglet:', tabName);
+            
+            // Masquer tous les contenus
+            const allTabs = document.querySelectorAll('.tab-content');
+            allTabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Désactiver tous les boutons
+            const allButtons = document.querySelectorAll('.nav-tab');
+            allButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Activer l'onglet cliqué
+            const targetTab = document.getElementById(tabName + '-tab');
+            const targetButton = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+            
+            if (targetTab) {
+                targetTab.classList.add('active');
+                console.log('✅ Onglet affiché:', tabName);
+            }
+            
+            if (targetButton) {
+                targetButton.classList.add('active');
+                console.log('✅ Bouton activé:', tabName);
+            }
+            
+            // Si c'est l'onglet commissions, charger les données
+            if (tabName === 'commissions') {
+                console.log('💰 Chargement des commissions...');
+                // Ici on pourrait appeler loadCommissions()
+            }
+        }
+        
+        // Fonction pour charger les commissions
+        function loadCommissions() {
+            console.log('📥 Chargement des commissions...');
+            alert('Chargement des commissions...');
+        }
+        
+        // Test au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Page de test chargée');
+            console.log('✅ Navigation prête à être testée');
+        });
+    </script>
+</body>
+</html>

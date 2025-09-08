@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Rôles - TeamApp V1</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-group { margin: 15px 0; }
+        .form-checkbox { margin-right: 8px; }
+        button { padding: 10px 20px; margin: 10px; }
+        #result { margin-top: 20px; padding: 15px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Test de la gestion des rôles</h1>
+    
+    <form id="testForm">
+        <div class="form-group">
+            <label>Rôles :</label><br>
+            <label><input type="checkbox" class="form-checkbox" value="apprentice"> Apprenti</label><br>
+            <label><input type="checkbox" class="form-checkbox" value="manager"> Manager</label><br>
+            <label><input type="checkbox" class="form-checkbox" value="admin"> Admin</label><br>
+            <label><input type="checkbox" class="form-checkbox" value="client"> Client</label><br>
+            <label><input type="checkbox" class="form-checkbox" value="builder"> Builder</label><br>
+            <label><input type="checkbox" class="form-checkbox" value="cm"> CM</label><br>
+            <label><input type="checkbox" class="form-checkbox" value="developer"> Developer</label>
+        </div>
+        
+        <button type="button" onclick="testGetRoles()">Tester Récupération Rôles</button>
+        <button type="button" onclick="testSetRoles()">Tester Définition Rôles</button>
+        <button type="button" onclick="clearRoles()">Effacer Tous</button>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+        function testGetRoles() {
+            const allRoleCheckboxes = document.querySelectorAll('input[value^="apprentice"], input[value^="manager"], input[value^="admin"], input[value^="client"], input[value^="builder"], input[value^="cm"], input[value^="developer"]');
+            const checkedRoleCheckboxes = document.querySelectorAll('input[value^="apprentice"], input[value^="manager"], input[value^="admin"], input[value^="client"], input[value^="builder"], input[value^="cm"], input[value^="developer"]:checked');
+            
+            const roles = Array.from(checkedRoleCheckboxes).map(cb => cb.value);
+            
+            const result = document.getElementById('result');
+            result.innerHTML = `
+                <h3>Résultats du test :</h3>
+                <p><strong>Tous les checkboxes trouvés :</strong> ${allRoleCheckboxes.length}</p>
+                <p><strong>Checkboxes cochés :</strong> ${checkedRoleCheckboxes.length}</p>
+                <p><strong>Rôles sélectionnés :</strong> ${roles.join(', ') || 'Aucun'}</p>
+                <p><strong>Détail des checkboxes :</strong></p>
+                <ul>
+                    ${Array.from(allRoleCheckboxes).map(cb => `<li>${cb.value}: ${cb.checked ? 'coché' : 'décoché'}</li>`).join('')}
+                </ul>
+            `;
+        }
+        
+        function testSetRoles() {
+            // Cocher quelques rôles de test
+            const testRoles = ['apprentice', 'manager', 'admin'];
+            testRoles.forEach(role => {
+                const checkbox = document.querySelector(`input[value="${role}"]`);
+                if (checkbox) checkbox.checked = true;
+            });
+            
+            document.getElementById('result').innerHTML = '<p>Rôles de test définis : apprentice, manager, admin</p>';
+        }
+        
+        function clearRoles() {
+            const allRoleCheckboxes = document.querySelectorAll('input[value^="apprentice"], input[value^="manager"], input[value^="admin"], input[value^="client"], input[value^="builder"], input[value^="cm"], input[value^="developer"]');
+            allRoleCheckboxes.forEach(cb => cb.checked = false);
+            
+            document.getElementById('result').innerHTML = '<p>Tous les rôles ont été effacés</p>';
+        }
+        
+        // Test automatique au chargement
+        window.onload = function() {
+            console.log('Page de test chargée');
+            testGetRoles();
+        };
+    </script>
+</body>
+</html>
